@@ -55,10 +55,10 @@
 </div>
 
 <script>
-$("#box button").click(function() {
-    let groupId = $(this).attr("data-group");
-    $(groupId).remove();
-});
+    $("#box button").click(function() {
+        let groupId = $(this).attr("data-group");
+        $(groupId).remove();
+    });
 </script>
 ```
 
@@ -94,27 +94,123 @@ $("#box button").click(function() {
 </div>
 
 <script>
-$("#btn-minus").click(function() {
-    let qty = parseInt($("#qty").val()) - 1;
-    $("#qty").val(qty);
+    $("#btn-minus").click(function() {
+        let qty = parseInt($("#qty").val()) - 1;
+        $("#qty").val(qty);
 
-    refreshOrderPrice();
-});
+        refreshOrderPrice();
+    });
 
-$("btn-plus").click(function() {
-    let qty = parseInt($("#qty").val()) + 1 ;
-    $("#qty").val(qty);
+    $("btn-plus").click(function() {
+        let qty = parseInt($("#qty").val()) + 1 ;
+        $("#qty").val(qty);
 
-    refreshOrderPrice();
-});
+        refreshOrderPrice();
+    });
 
-function refreshOrderPrice() {
-    let qty = parseInt($("#qty").val());
-    let price = $("#price-txt").attr("data-price");
-    let orderPrice = qty*price;
+    function refreshOrderPrice() {
+        let qty = parseInt($("#qty").val());
+        let price = $("#price-txt").attr("data-price");
+        let orderPrice = qty*price;
 
-    $("#order-price-txt").attr("data-order-price", orderPrice)
-        .text(orderPrice.toLocaleString());
-}
+        $("#order-price-txt").attr("data-order-price", orderPrice)
+            .text(orderPrice.toLocaleString());
+    }
+</script>
+```
+
+### 추가 버튼을 클릭했을 때 HTML 컨텐츠 추가하기
+
+- 요구사항
+  - 추가버튼을 클릭하면 경력사항 입력필드와 삭제버튼을 추가시킨다.
+  - 삭제버튼을 클릭했을 때 추가된 경력사항 입력필드를 삭제한다. 
+- 코딩가이드
+  - 새 경력사항이 추가될 div 엘리먼트를 정의하고, 식별을 위해서 아이디를 설정한다.
+  - 추가 버튼을 클릭했을 때 추가될 html 컨텐츠를 생성하고 위에서 정의한 div 엘리먼트의 자식으로 추가한다.
+  - 삭제버튼을 클릭했을 새로 추가된 경력필드 항목을 전부 삭제하기 위해서 새로 추가되는 엘리먼트에 id를 설정하고, 삭제버튼에 data-xxx 속성으로 아이디값을 관리한다.
+  - 삭제버튼은 미래에 추가되는 엘리먼트이기 때문에 이벤트 핸들러 등록시 주의하자.
+```html
+<form>
+    <div>
+        <label>이름</label>
+        <input type="text" name="name" />
+    </div>
+    <div>
+        <label>이메일</label>
+        <input type="text" name="email" />
+    </div>
+    <div>
+        <label>연락처</label>
+        <input type="text" name="tel" />
+    </div>
+    <div>
+        <label>경력사항</label>
+        <input type="text" name="career" id="career" />
+        <button type="button" id="btn-add-career">입력필드 추가</button>
+        <!-- 경력사항 입력필드가 추가될 div -->
+        <div id="box-career"></div>
+    </div>
+</form>
+
+<script>
+    let careerSeq = 1;
+    $("#btn-add-career").click(function() {
+        let htmlContent = `
+            <div id="career-\${careerFieldSeq}">
+                <input type="text" name="career" />
+                <button type="button" 
+                    data-career-id="#career-\${careerFieldSeq}">
+                    입력필드 삭제
+                </button>
+            </div>
+        `;
+
+        $("#box-career").append(htmlContent);
+    });
+
+    $("#box-career").on('click', 'button', function() {
+        let careerId = $(this).data('career-id');
+        $(careerId).remove();
+    });
+</scrit>
+```
+
+### 로그인 버튼을 클릭했을 때 폼 입력값 검증하기
+- 요구사항
+  - 로그인 버튼을 클릭했을 때, 아이디, 비밀번호 입력필드에 입력값이 있는지 검증하고, 입력값이 없으면 경고창을 표시한다.
+- 개발가이드
+  - 로그인 버튼을 클릭하면 해당 form 엘리먼트에서 submit이벤트가 발생하므로, form 엘리먼트에서 발생하는 submit 이벤트를 이용하자.
+  - form 엘리먼트에서 submit 이벤트가 발생하면 form은 입력값을 서버로 제출하는 것이 기본동작인데, 입력값이 유효하지 않으면 form 입력값이 서버로 제출되지 않도록 form의 기본동작 실행을 방해하자.
+  - jQuery에서는 이벤트 핸들러 함수가 false를 반환하면 기본동작 실행을 방해함으로 이를 활용한다.
+
+```html
+<form id="form-login" method="post" action="/login">
+    <div>
+        <label>아이디</div>
+        <input type="text" name="id" id="user-id" />
+    </div>
+    <div>
+        <label>비밀번호</div>
+        <input type="password" name="pwd" id="user-pwd" />
+    </div>
+    <div>
+        <button type="submit">로그인</button>
+    </div>
+</form>
+
+<script>
+    $("#form-login").submit(function() {
+        if ($("#user-id").val() == "") {
+            alert("아이디는 필수입력값입니다.");
+            return false;
+        }
+
+        if ($("#user-pwd").val() == "") {
+            alert("비밀번호는 필수입력값입니다.");
+            return false;
+        }
+
+        return true;
+    });
 </script>
 ```
