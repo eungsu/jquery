@@ -217,7 +217,7 @@
 <div>
 
 <script>
-  $(".box-small-img").click(function() {
+  $(".box-small-img img").click(function() {
     let bigImgPath = $(this).data("big-img-path");
     $("#big-img").attr("src", bigImgPath);
   });
