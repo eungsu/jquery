@@ -178,6 +178,7 @@
         `;
 
         $("#box-career").append(htmlContent);
+        careerSeq++;
     });
 
     $("#box-career").on('click', 'button', function() {
