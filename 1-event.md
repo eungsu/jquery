@@ -35,7 +35,7 @@
   - 이벤트 핸들러 함수 안에서는 this 키워드로 이벤트가 발생한 button 엘리먼트를 획득하고, 해당 엘리먼트의 data-xxx 속성값을 읽어서 삭제할 div 엘리먼트의 아이디를 알아낸다.
 
 ```html
-<div id="box">
+<div id="box-button">
     <p>경력사항을 등록하세요</p>
     <div id="form-group-1" class="form-group">
         <label>경력사항</label>
@@ -55,7 +55,7 @@
 </div>
 
 <script>
-    $("#box button").click(function() {
+    $("#box-button button").click(function() {
         let groupId = $(this).attr("data-group");
         $(groupId).remove();
     });
