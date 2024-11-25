@@ -101,7 +101,7 @@
         refreshOrderPrice();
     });
 
-    $("btn-plus").click(function() {
+    $("#btn-plus").click(function() {
         let qty = parseInt($("#qty").val()) + 1 ;
         $("#qty").val(qty);
 
