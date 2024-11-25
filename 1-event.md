@@ -166,6 +166,10 @@
 
 <script>
     let careerSeq = 1;
+
+    // 현재 존재하는 버튼에 이벤트 핸들러 함수 등록시키기
+    // $("이벤트소스 선택자").click(이벤트핸들러함수)
+
     $("#btn-career-add").click(function() {
         let htmlContent = `
             <div id="career-\${careerFieldSeq}">
@@ -181,6 +185,8 @@
         careerSeq++;
     });
 
+    // 현재 존재하지 않고, 미래에 특정 엘리먼트 내부에 추가되는 엘리먼트에 이벤트 등록시키기
+    // $("컨테이너 선택자").on("이벤트명", "이벤트소스 선택자", 이벤트핸들러함수);
     $("#box-career").on('click', 'button', function() {
         let careerId = $(this).data('career-id');
         $(careerId).remove();
