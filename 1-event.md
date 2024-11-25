@@ -158,7 +158,7 @@
     <div>
         <label>경력사항</label>
         <input type="text" name="career" id="career" />
-        <button type="button" id="btn-add-career">입력필드 추가</button>
+        <button type="button" id="btn-career-add">입력필드 추가</button>
         <!-- 경력사항 입력필드가 추가될 div -->
         <div id="box-career"></div>
     </div>
@@ -166,7 +166,7 @@
 
 <script>
     let careerSeq = 1;
-    $("#btn-add-career").click(function() {
+    $("#btn-career-add").click(function() {
         let htmlContent = `
             <div id="career-\${careerFieldSeq}">
                 <input type="text" name="career" />
