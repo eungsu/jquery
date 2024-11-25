@@ -13,11 +13,11 @@
 ```html
 <div id="box">
     <img src="photo.png" id="img-photo">
-    <button id="btn-hide">감추기</button>
+    <button id="btn-img-hide">감추기</button>
 </div>
 
 <script>
-    $("#btn-hide").click(function() {
+    $("#btn-img-hide").click(function() {
         $("#img-photo").hide();
     });
 </script>
