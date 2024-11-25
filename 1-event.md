@@ -94,26 +94,38 @@
 </div>
 
 <script>
+    // 마이너스 버튼 클릭시 실행되는 이벤트 핸들러 함수를 등록한다.
     $("#btn-minus").click(function() {
+        // 현재 입력필드의 값을 조회해서 1 감소시킨다.
         let qty = parseInt($("#qty").val()) - 1;
+        // 입력필드에 1 감소된 값을 설정한다.
         $("#qty").val(qty);
-
+        
+        // 구매가격을 갱신한다.
         refreshOrderPrice();
     });
 
+    // 플러스 버튼 클릭시 실행되는 이벤트 핸들러 함수를 등록한다.
     $("#btn-plus").click(function() {
+        // 현재 입력필드의 값을 조회해서 1 증가시킨다.
         let qty = parseInt($("#qty").val()) + 1 ;
+        // 입력필드에 1 증가된 값을 설정한다.
         $("#qty").val(qty);
 
+        // 구매가격을 갱신한다.
         refreshOrderPrice();
     });
 
     function refreshOrderPrice() {
+        // 갯수변경이 적용된 입력필드의 값을 조회한다.
         let qty = parseInt($("#qty").val());
+        // 가격을 조회한다.
         let price = $("#price-txt").attr("data-price");
+        // 구매가격을 계산한다.
         let orderPrice = qty*price;
 
-        $("#order-price-txt").attr("data-order-price", orderPrice)
+        $("#order-price-txt")
+            .attr("data-order-price", orderPrice)
             .text(orderPrice.toLocaleString());
     }
 </script>
