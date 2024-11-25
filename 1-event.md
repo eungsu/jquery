@@ -1,6 +1,6 @@
 # 이벤트 처리
 
-## 클릭 이벤트 처리
+## click 이벤트 처리
 
 ### 버튼 하나에 클릭 이벤트 핸들러 등록하기
 - 요구사항
@@ -174,6 +174,39 @@
     });
 </scrit>
 ```
+
+### 썸네일 이미지를 클릭했을 때 큰 이미지로 표시하기
+- 요구사항
+  - 썸네일 이미지를 클릭하면 큰 이미지로 표시한다.
+- 코딩가이드
+  - 각 썸네일 이미지를 클릭했을 때 실행할 이벤트핸들러를 등록한다.
+  - 클릭한 이미지가 표시될 img 엘리먼트를 식별하기 위해서 id를 설정한다.
+  - 썸네일 이미지의 data-xxx 속성값에 큰이미지의 경로와 이름을 설정해둔다.
+  - 썸네일 이미지를 클릭하면 미리 설정한 data-xxx 속성값을 읽어서 큰 이미지의 src 속성값을 변경한다.
+
+```html
+<div>
+  <div class="box-big-img">
+    <img src="큰이미지 경로 및 이름" id="big-img" />
+  </div>
+  <div class="box-small-img">
+    <img src="작은이미지 경로 및 파일명" data-big-img-path="큰 이미지 경로 및 파일명" />
+    <img src="작은이미지 경로 및 파일명" data-big-img-path="큰 이미지 경로 및 파일명" />
+    <img src="작은이미지 경로 및 파일명" data-big-img-path="큰 이미지 경로 및 파일명" />
+    <img src="작은이미지 경로 및 파일명" data-big-img-path="큰 이미지 경로 및 파일명" />
+  </div>
+<div>
+
+<script>
+  $(".box-small-img").click(function() {
+    let bigImgPath = $(this).data("big-img-path");
+    $("#big-img").attr("src", bigImgPath);
+  });
+</script>
+```
+
+
+## submit 이벤트 처리
 
 ### 로그인 버튼을 클릭했을 때 폼 입력값 검증하기
 - 요구사항
